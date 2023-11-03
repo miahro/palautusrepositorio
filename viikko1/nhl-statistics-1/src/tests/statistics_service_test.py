@@ -1,5 +1,5 @@
 import unittest
-from statistics_service import StatisticsService
+from statistics_service import StatisticsService, SortBy
 from statistics_service import sort_by_points
 from player import Player
 
@@ -42,9 +42,34 @@ class TestStatisticsService(unittest.TestCase):
             self.assertEqual(player.team, "EDM")
             self.assertIn(player.name, ["Semenko", "Kurri", "Gretzky"])
 
-    def test_top(self):
+    def test_top_default(self):
         top_players = self.stats.top(3)
         self.assertEqual(len(top_players), 3)
         self.assertEqual(top_players[0].name, "Gretzky")
         self.assertEqual(top_players[1].name, "Lemieux")
         self.assertEqual(top_players[2].name, "Yzerman")
+
+    def test_top_points(self):
+        top_players = self.stats.top(3, SortBy.POINTS)
+        self.assertEqual(len(top_players), 3)
+        self.assertEqual(top_players[0].name, "Gretzky")
+        self.assertEqual(top_players[1].name, "Lemieux")
+        self.assertEqual(top_players[2].name, "Yzerman")
+
+    def test_top_goals(self):
+        top_players = self.stats.top(3, SortBy.GOALS)
+        self.assertEqual(len(top_players), 3)
+        self.assertEqual(top_players[0].name, "Lemieux")
+        self.assertEqual(top_players[1].name, "Yzerman")
+        self.assertEqual(top_players[2].name, "Kurri")
+
+    def test_top_assists(self):
+        top_players = self.stats.top(3, SortBy.ASSISTS)
+        self.assertEqual(len(top_players), 3)
+        self.assertEqual(top_players[0].name, "Gretzky")
+        self.assertEqual(top_players[1].name, "Yzerman")
+        self.assertEqual(top_players[2].name, "Lemieux")
+
+    def test_top_invalid_enum(self):
+        with self.assertRaises(ValueError):
+            top_players = self.stats.top(3, 1)
