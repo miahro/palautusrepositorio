@@ -3,3 +3,5 @@ htmlcov
 .coverage
 .pytest_cache
 .htmlcov/
+*.html
+*.xml
