@@ -5,3 +5,4 @@ htmlcov
 .htmlcov/
 *.html
 *.xml
+*.png
