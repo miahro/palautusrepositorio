@@ -1,12 +1,16 @@
 *** Settings ***
-Library  ../AppLibrary.py
+Library     ../AppLibrary.py
+
 
 *** Keywords ***
 Input Login Command
-    Input  login
+    Input    login
 
 Input Credentials
-    [Arguments]  ${username}  ${password}
-    Input  ${username}
-    Input  ${password}
+    [Arguments]    ${username}    ${password}
+    Input    ${username}
+    Input    ${password}
     Run Application
+
+Input New Command
+    Input    new

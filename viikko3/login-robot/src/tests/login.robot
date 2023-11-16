@@ -14,8 +14,8 @@ Login With Incorrect password
     Output Should Contain    Invalid username or password
 
 Login With Nonexistent username
-    Input Credentials    ${EMPTY}    pwd
-    Output Should Contain    Username and password are required
+    Input Credentials    ville    pwd
+    Output Should Contain    Invalid username or password
 
 
 *** Keywords ***
