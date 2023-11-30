@@ -37,14 +37,14 @@ class Nollaus:
         self.sovelluslogiikka.nollaa()
 
 
-class Kumoa:  # kesken
+class Kumoa:
     def __init__(self, sovelluslogiikka):
         self.sovelluslogiikka = sovelluslogiikka
 
     def suorita(self):
         print(
             f"Kumoa kutsuttu with current arvo {self.sovelluslogiikka.arvo()}")
-        self.sovelluslogiikka.aseta_arvo(0)  # EI NÄIN
+        self.sovelluslogiikka.palauta_edellinen()
 
 
 class Kayttoliittyma:
@@ -106,7 +106,10 @@ class Kayttoliittyma:
     def _suorita_komento(self, komento):
         komento_olio = self._komennot[komento]
         komento_olio.suorita()
-        self._kumoa_painike["state"] = constants.NORMAL
+        if len(self._sovelluslogiikka.edelliset_tilat) == 0:
+            self._kumoa_painike["state"] = constants.DISABLED
+        else:
+            self._kumoa_painike["state"] = constants.NORMAL
 
         if self._sovelluslogiikka.arvo() == 0:
             self._nollaus_painike["state"] = constants.DISABLED
