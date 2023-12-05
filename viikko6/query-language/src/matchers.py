@@ -33,20 +33,16 @@ class All:
     def __init__(self, *mathchers):
         self._matchers = mathchers
 
-    def test(self, player):
+    def test(self):
         return True
 
 
 class Not:
-    def __init__(self, *matchers):
-        self._matchers = matchers
+    def __init__(self, matcher):
+        self._matcher = matcher
 
     def test(self, player):
-        for matcher in self._matchers:
-            if not matcher.test(player):
-                return True
-
-        return False
+        return not self._matcher.test(player)
 
 
 class HasFewerThan:
