@@ -19,7 +19,7 @@ def main():
     #     print(player)
 
     matcher = And(
-        Not(HasAtLeast(2, "goals")),
+        HasAtLeast(2, "goals"),
         PlaysIn("NYR")
     )
 
@@ -28,8 +28,8 @@ def main():
     #     PlaysIn("NYR")
     # )
 
-    for player in stats.matches(matcher):
-        print(player)
+    # for player in stats.matches(matcher):
+    #     print(player)
 
     # filtered_with_all = stats.matches(All())
     # print(len(filtered_with_all))
@@ -52,17 +52,48 @@ def main():
     #     print(player)
 
     query = QueryBuilder()
+    # matcher = query.notPlaysIn("NYR").hasAtLeast(
+    #     10, "goals").hasFewerThan(20, "goals").build()
     # # matcher = query.playsIn("NYR").build()
 
     # matcher = query.playsIn("NYR").notHasAtLeast(
     #     10, "goals").hasFewerThan(20, "goals").build()
 
-    matcher = (query
-               .playsIn("NYR")
-               .hasFewerThan(10, "goals")
-               .hasAtLeast(10, "assists")
-               .build()
-               )
+    matcher = (
+        query
+        .oneOf(
+            query.playsIn("PHI")
+            .hasAtLeast(10, "assists")
+            .hasFewerThan(5, "goals")
+            .build(),
+            query.playsIn("EDM")
+            .hasAtLeast(50, "points")
+            .build(),
+            query.playsIn("NYR")
+            .hasAtLeast(60, "points")
+            .build(),
+        )
+        .build()
+    )
+
+    # # matcher = query.playsIn("PHI").build()
+
+    # m1 = (
+    #     query
+    #     .playsIn("PHI")
+    #     .hasAtLeast(10, "assists")
+    #     .hasFewerThan(5, "goals")
+    #     .build()
+    # )
+
+    # m2 = (
+    #     query
+    #     .playsIn("EDM")
+    #     .hasAtLeast(50, "points")
+    #     .build()
+    # )
+
+    # matcher = query.oneOf(m1, m2).build()
 
     for player in stats.matches(matcher):
         print(player)

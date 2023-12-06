@@ -33,7 +33,7 @@ class All:
     def __init__(self, *mathchers):
         self._matchers = mathchers
 
-    def test(self):
+    def test(self, player=None):
         return True
 
 
@@ -41,7 +41,7 @@ class Not:
     def __init__(self, matcher):
         self._matcher = matcher
 
-    def test(self, player):
+    def test(self, player=None):
         return not self._matcher.test(player)
 
 
